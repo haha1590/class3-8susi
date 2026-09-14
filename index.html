@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3학년 8반 수시 면접일정</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<style>
+  :root{
+    --ink:#1c2b28;
+    --sub:#5c6f6a;
+    --paper:#f6f4ee;
+    --card:#ffffff;
+    --line:#e1ddd0;
+    --pine:#1f6f63;
+    --pine-dark:#154f47;
+    --pine-pale:#e5f1ee;
+    --clay:#e2704f;
+    --clay-pale:#fbe7e0;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Pretendard', -apple-system, 'Malgun Gothic', sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    word-break:keep-all;
+  }
+  .wrap{max-width:980px;margin:0 auto;padding:36px 20px 80px;}
+
+  header.top{margin-bottom:28px;}
+  header.top .eyebrow{color:var(--pine);font-size:14px;font-weight:600;margin:0 0 6px;}
+  header.top h1{font-size:28px;line-height:1.35;margin:0 0 8px;font-weight:700;}
+  header.top p{color:var(--sub);margin:0;font-size:15px;}
+
+  .grid{display:grid;grid-template-columns:340px 1fr;gap:22px;}
+  @media (max-width:800px){.grid{grid-template-columns:1fr;}}
+
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:22px;
+  }
+  .card h2{font-size:17px;margin:0 0 16px;font-weight:700;}
+
+  label{display:block;font-size:13px;color:var(--sub);margin:14px 0 6px;font-weight:600;}
+  label:first-of-type{margin-top:0;}
+  label .opt{color:#9aa79f;font-weight:500;}
+  select, input[type="date"], input[type="time"], input[type="text"]{
+    width:100%;
+    padding:10px 12px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    font-size:15px;
+    font-family:inherit;
+    background:#fdfcf9;
+    color:var(--ink);
+  }
+  select:focus, input:focus{outline:2px solid var(--pine);outline-offset:1px;}
+
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+
+  .btn{
+    margin-top:18px;
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:var(--pine);
+    color:#fff;
+    font-size:15px;
+    font-weight:700;
+    cursor:pointer;
+    font-family:inherit;
+  }
+  .btn:hover{background:var(--pine-dark);}
+  .btn:disabled{background:#a9b8b4;cursor:not-allowed;}
+
+  .msg{margin-top:12px;font-size:13px;padding:10px 12px;border-radius:8px;display:none;}
+  .msg.show{display:block;}
+  .msg.ok{background:var(--pine-pale);color:var(--pine-dark);}
+  .msg.err{background:var(--clay-pale);color:#a03f24;}
+
+  .mylist{margin-top:24px;}
+  .mylist h3{font-size:14px;color:var(--sub);margin:0 0 10px;font-weight:700;}
+  .myitem{
+    display:flex;justify-content:space-between;align-items:flex-start;
+    padding:10px 0;border-top:1px solid var(--line);font-size:13.5px;
+  }
+  .myitem .info{color:var(--ink);}
+  .myitem .info span{color:var(--sub);display:block;font-size:12px;margin-top:2px;}
+  .myitem button{
+    border:none;background:transparent;color:var(--clay);font-size:12.5px;
+    cursor:pointer;font-weight:700;font-family:inherit;flex-shrink:0;margin-left:8px;
+  }
+
+  .tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;}
+  .tab{
+    padding:10px 16px;text-align:center;border-radius:8px;
+    background:var(--card);border:1px solid var(--line);
+    cursor:pointer;font-weight:700;color:var(--sub);font-size:14px;
+  }
+  .tab.active{background:var(--pine);color:#fff;border-color:var(--pine);}
+
+  .cal{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--card);}
+  .cal-head{
+    display:grid;grid-template-columns:repeat(7,1fr);
+    background:var(--pine-pale);
+  }
+  .cal-head div{padding:10px 4px;text-align:center;font-size:12.5px;font-weight:700;color:var(--pine-dark);}
+  .cal-body{display:grid;grid-template-columns:repeat(7,1fr);}
+  .cell{
+    min-height:96px;border-top:1px solid var(--line);border-left:1px solid var(--line);
+    padding:6px 6px 8px;position:relative;
+  }
+  .cal-body .cell:nth-child(7n+1){border-left:none;}
+  .cell.empty{background:#fafaf6;}
+  .cell .num{font-size:12px;color:var(--sub);font-weight:600;}
+  .cell.today .num{color:var(--pine);}
+  .chip{
+    margin-top:4px;font-size:10.5px;line-height:1.3;
+    background:var(--pine-pale);color:var(--pine-dark);
+    border-radius:5px;padding:2px 5px;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  }
+  .chip .time{color:var(--sub);font-weight:400;}
+  .more{font-size:10px;color:var(--sub);margin-top:2px;}
+  .empty-cal{padding:40px 20px;text-align:center;color:var(--sub);font-size:13.5px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <p class="eyebrow">3학년 8반</p>
+    <h1>수시 지원대학 면접일정</h1>
+    <p>본인이 지원한 대학의 면접일정을 입력하면 반 전체 스케줄표에 표시됩니다</p>
+  </header>
+
+  <div class="grid">
+
+    <!-- 입력 폼 -->
+    <div class="card">
+      <h2>면접일정 입력</h2>
+
+      <label for="studentSelect">이름</label>
+      <select id="studentSelect"></select>
+
+      <label for="university">대학명</label>
+      <input type="text" id="university" placeholder="예: 인제대학교">
+
+      <label for="department">학과</label>
+      <input type="text" id="department" placeholder="예: 간호학과">
+
+      <label for="interviewDate">면접일</label>
+      <input type="date" id="interviewDate">
+
+      <label for="interviewTime">면접시간 <span class="opt">(선택)</span></label>
+      <input type="time" id="interviewTime">
+
+      <button class="btn" id="submitBtn">입력하기</button>
+      <div class="msg" id="formMsg"></div>
+
+      <div class="mylist">
+        <h3>내 면접일정</h3>
+        <div id="myItems"></div>
+      </div>
+    </div>
+
+    <!-- 스케줄표 -->
+    <div>
+      <div class="tabs" id="tabs"></div>
+
+      <div class="cal">
+        <div class="cal-head">
+          <div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div>
+        </div>
+        <div class="cal-body" id="calBody"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ⚠️ 배포한 GAS 웹 앱 URL을 아래에 붙여넣으세요
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbxauF9DRk0uzG_rxS-jlAB8b2EgpLCRaV8jcBqscjVRethWCYGAzQrEyS6DpYCVR_c/exec';
+
+// 3학년 8반 명렬 (번호순) — 실제 번호와 다르면 아래 목록을 수정하세요
+const ROSTER = [
+  {no:1,  name:'김도경'}, {no:2,  name:'김수진'}, {no:3,  name:'김아진'},
+  {no:4,  name:'김지경'}, {no:5,  name:'김현아'}, {no:6,  name:'박세진'},
+  {no:7,  name:'신정민'}, {no:8,  name:'오희승'}, {no:9,  name:'이승연'},
+  {no:10, name:'이예진'}, {no:11, name:'임서영'}, {no:12, name:'정아름'},
+  {no:13, name:'정윤지'}, {no:14, name:'정인혜'}, {no:15, name:'최다연'},
+  {no:16, name:'한재연'}
+];
+
+// 수시 면접 시즌에 맞춘 고정 탭 (데이터가 없어도 항상 표시됩니다)
+// 기간을 바꾸고 싶으면 이 배열만 수정하세요.
+const FIXED_MONTHS = [
+  {year:2026, month:10},
+  {year:2026, month:11},
+  {year:2026, month:12},
+  {year:2027, month:1}
+];
+
+let applications = [];
+let monthKeys = [];      // ['2026-11', '2026-12', ...]
+let activeMonthKey = FIXED_MONTHS[0].year + '-' + String(FIXED_MONTHS[0].month).padStart(2,'0');
+
+const studentSelect = document.getElementById('studentSelect');
+const universityEl = document.getElementById('university');
+const departmentEl = document.getElementById('department');
+const interviewDateEl = document.getElementById('interviewDate');
+const interviewTimeEl = document.getElementById('interviewTime');
+const submitBtn = document.getElementById('submitBtn');
+const formMsg = document.getElementById('formMsg');
+const myItemsEl = document.getElementById('myItems');
+const tabsEl = document.getElementById('tabs');
+const calBody = document.getElementById('calBody');
+
+function initRoster(){
+  ROSTER.forEach(s=>{
+    const opt = document.createElement('option');
+    opt.value = s.name;
+    opt.dataset.no = s.no;
+    opt.textContent = s.no + '. ' + s.name;
+    studentSelect.appendChild(opt);
+  });
+}
+
+function showMsg(text, type){
+  formMsg.textContent = text;
+  formMsg.className = 'msg show ' + type;
+  setTimeout(()=>{ formMsg.classList.remove('show'); }, 3500);
+}
+
+async function loadApplications(){
+  if(GAS_URL.includes('YOUR_GAS')){
+    calBody.parentElement.innerHTML = '<div class="empty-cal">GAS_URL이 설정되지 않았습니다. index.html 상단의 GAS_URL 값을 배포한 웹 앱 주소로 바꿔주세요.</div>';
+    return;
+  }
+  try{
+    const res = await fetch(GAS_URL);
+    const json = await res.json();
+    if(json.status === 'ok'){
+      applications = json.data;
+      renderCalendar();
+      renderMyItems();
+    }else{
+      showMsg('일정을 불러오지 못했습니다: ' + (json.message || '알 수 없는 오류'), 'err');
+    }
+  }catch(err){
+    console.error(err);
+    showMsg('일정을 불러오지 못했습니다. GAS 웹 앱 배포의 액세스 권한이 "전체 허용"인지 확인해주세요.', 'err');
+  }
+}
+
+function rebuildMonthKeys(){
+  monthKeys = FIXED_MONTHS.map(m => m.year + '-' + String(m.month).padStart(2,'0'));
+  if(!activeMonthKey || !monthKeys.includes(activeMonthKey)){
+    activeMonthKey = monthKeys[0];
+  }
+}
+
+function renderTabs(){
+  tabsEl.innerHTML = '';
+  monthKeys.forEach(key=>{
+    const [y,m] = key.split('-');
+    const tab = document.createElement('div');
+    tab.className = 'tab' + (key === activeMonthKey ? ' active' : '');
+    tab.textContent = y + '년 ' + parseInt(m) + '월';
+    tab.addEventListener('click', ()=>{
+      activeMonthKey = key;
+      renderTabs();
+      renderCalendar();
+    });
+    tabsEl.appendChild(tab);
+  });
+}
+
+async function submitApplication(){
+  const opt = studentSelect.selectedOptions[0];
+  const name = opt.value;
+  const no = opt.dataset.no;
+  const university = universityEl.value.trim();
+  const department = departmentEl.value.trim();
+  const interviewDate = interviewDateEl.value;
+  const interviewTime = interviewTimeEl.value;
+
+  if(!university){ showMsg('대학명을 입력해주세요.', 'err'); return; }
+  if(!department){ showMsg('학과를 입력해주세요.', 'err'); return; }
+  if(!interviewDate){ showMsg('면접일을 입력해주세요.', 'err'); return; }
+
+  submitBtn.disabled = true;
+  try{
+    const res = await fetch(GAS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ no, name, university, department, interviewDate, interviewTime })
+    });
+    const json = await res.json();
+    if(json.status === 'ok'){
+      showMsg('면접일정이 입력되었습니다.', 'ok');
+      universityEl.value = '';
+      departmentEl.value = '';
+      interviewDateEl.value = '';
+      interviewTimeEl.value = '';
+      await loadApplications();
+    }else{
+      showMsg(json.message || '오류가 발생했습니다.', 'err');
+    }
+  }catch(err){
+    showMsg('전송 중 오류가 발생했습니다.', 'err');
+  }finally{
+    submitBtn.disabled = false;
+  }
+}
+
+async function deleteApplication(app){
+  if(!confirm(app.university + ' ' + app.department + ' (' + app.interviewDate + ') 일정을 삭제할까요?')) return;
+  try{
+    const res = await fetch(GAS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action:'delete', name: app.name, university: app.university, department: app.department, interviewDate: app.interviewDate })
+    });
+    const json = await res.json();
+    if(json.status === 'ok'){
+      await loadApplications();
+    }else{
+      alert(json.message || '삭제 중 오류가 발생했습니다.');
+    }
+  }catch(err){
+    alert('삭제 중 오류가 발생했습니다.');
+  }
+}
+
+function renderMyItems(){
+  const name = studentSelect.value;
+  const mine = applications.filter(a => a.name === name)
+    .sort((a,b)=> a.interviewDate.localeCompare(b.interviewDate));
+  if(mine.length === 0){
+    myItemsEl.innerHTML = '<p style="color:var(--sub);font-size:13px;margin:8px 0 0;">입력된 면접일정이 없습니다.</p>';
+    return;
+  }
+  myItemsEl.innerHTML = '';
+  mine.forEach(app=>{
+    const row = document.createElement('div');
+    row.className = 'myitem';
+    const timeStr = app.interviewTime ? ' · ' + app.interviewTime : '';
+    row.innerHTML =
+      '<div class="info">' + app.university + ' ' + app.department +
+      '<span>' + app.interviewDate + timeStr + '</span></div>';
+    const delBtn = document.createElement('button');
+    delBtn.textContent = '삭제';
+    delBtn.onclick = () => deleteApplication(app);
+    row.appendChild(delBtn);
+    myItemsEl.appendChild(row);
+  });
+}
+
+function renderCalendar(){
+  if(!activeMonthKey) return;
+  const [yearStr, monthStr] = activeMonthKey.split('-');
+  const year = parseInt(yearStr);
+  const month = parseInt(monthStr) - 1; // 0-indexed
+
+  const dayMap = {};
+  applications.forEach(app=>{
+    if(app.interviewDate.slice(0,7) !== activeMonthKey) return;
+    if(!dayMap[app.interviewDate]) dayMap[app.interviewDate] = [];
+    dayMap[app.interviewDate].push(app);
+  });
+  Object.values(dayMap).forEach(list=>{
+    list.sort((a,b)=> (a.interviewTime||'99:99').localeCompare(b.interviewTime||'99:99'));
+  });
+
+  const firstDow = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month+1, 0).getDate();
+  const todayStr = new Date().toISOString().slice(0,10);
+
+  calBody.innerHTML = '';
+
+  for(let i=0;i<firstDow;i++){
+    const cell = document.createElement('div');
+    cell.className = 'cell empty';
+    calBody.appendChild(cell);
+  }
+
+  for(let day=1; day<=daysInMonth; day++){
+    const mm = String(month+1).padStart(2,'0');
+    const dd = String(day).padStart(2,'0');
+    const dateStr = `${year}-${mm}-${dd}`;
+    const entries = dayMap[dateStr] || [];
+
+    const cell = document.createElement('div');
+    cell.className = 'cell' + (dateStr === todayStr ? ' today' : '');
+
+    const num = document.createElement('div');
+    num.className = 'num';
+    num.textContent = day;
+    cell.appendChild(num);
+
+    const shown = entries.slice(0,3);
+    shown.forEach(e=>{
+      const chip = document.createElement('div');
+      chip.className = 'chip';
+      chip.title = e.university + ' ' + e.department + (e.interviewTime ? ' ' + e.interviewTime : '');
+      chip.innerHTML = e.university + '(' + e.name + ')' + (e.interviewTime ? ' <span class="time">' + e.interviewTime + '</span>' : '');
+      cell.appendChild(chip);
+    });
+    if(entries.length > 3){
+      const more = document.createElement('div');
+      more.className = 'more';
+      more.textContent = '+' + (entries.length - 3) + '건 더보기';
+      cell.appendChild(more);
+    }
+
+    calBody.appendChild(cell);
+  }
+}
+
+studentSelect.addEventListener('change', renderMyItems);
+submitBtn.addEventListener('click', submitApplication);
+
+initRoster();
+rebuildMonthKeys();
+renderTabs();
+renderCalendar();
+loadApplications();
+</script>
+</body>
+</html>
